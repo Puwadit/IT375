@@ -1,40 +1,44 @@
+// step1
 const express = require('express');
-const { json } = require('express');
 const app = express();
 const port = process.env.PORT || 8000;
-//IT STUDEN
-const itStdents=[
-    {id:61,name:'John Maton'},
-    {id:62,name:'Abeglag Rober'}
+// step2
+
+// IT students
+const itStudents = [
+    { id: 61, name: 'Suchada IT' },
+    { id: 62, name: 'Nachada IT' }
 ];
-//ce STUDEN
-const ceStudents=[
-    {id:71,name:'Arther Mongan'},
-    {id:72,name:'Sean max'}
+// ce students
+const ceStudents = [
+    { id: 71, name: 'warawut CE' },
+    { id: 72, name: 'Wachada CE' }
 ];
 //major
-const allMajors={
-    'it': itStdents,
+const allmajors = {
+    'it': itStudents,
     'ce': ceStudents
 };
-//route
-app.get('api/:major',(req,res,next)=>{
-    const major=req.params.major.toLowerCase();
-    if(major=='it'){
-        const jsonString=json.stringify(itStdents);
-        req.myobj = jsonString;
+
+// route1
+app.get('/api/:major',(req,res,next)=>{
+    const major= req.params.major.toLowerCase();
+    if (major=='it'){
+        const jsonString= JSON.stringify(itStudents);
+        req.myobj= jsonString;
         next();
-    }else if (major=='ce'){
-        const jsonString=JSON.stringify(ceStudents);
-        req.myobj=jsonString;
+    }else if(major =='ce'){
+        const jsonString= JSON.stringify(ceStudents);
+        req.myobj= jsonString;
         next();
     }else{
-        res.send('Major not found!!!');  
+        res.send('Major not found!!!');
     }
-},(req,res)=>{
-    req.myobj+= 'End of Data';
-    res.send(req.myobj);
+},(req ,res )=>{
+    req
+.myobj +=' End of Data';
+res.send(req.myobj);
 });
 app.listen(port,'127.0.0.1',()=>{
-    console.log(`Listening to request on port ${port}`);
+    console.log(`Listening to request on port ${port}`); 
 });
