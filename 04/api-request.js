@@ -60,7 +60,7 @@ app.post('/api/addstu', (req, res) => {
     res.send(itStudents);
 });
 app.post('/api/addstudents', (req, res) => {
-   
+
     const stuArr = req.body;
     stuArr.forEach(element => {
         const stuId = element.id;
@@ -77,4 +77,27 @@ app.post('/api/addstudents', (req, res) => {
         itStudents.push(newStudent);
     });
     res.send(itStudents);
+});
+///////
+app.put('/api/editstu/:id', (req, res) => {
+    const stuId = itStudents.find(element => element.id === parseInt(req.body.id));
+    if (stuId) {
+        stuId.fname = req.body.fname;
+        stuId.lname = req.body.lname;
+        stuId.tel = req.body.tel;
+    } else {
+        res.status(404).send('ไม่พบรหัสนักศึกษานี้');
+    }
+    res.send(itStudents);
+});
+//////
+app.delete('/api/deletestu/:id',(req,res)=>{
+    const stuId =itStudents.find(element =>element.id === parseInt(req.params.id));
+    if(stuId){
+        const index=itStudents.indexOf(stuId);
+        itStudents.splice(index,1);
+        }else{
+            res.status(404).send('ไม่พบรหัสนักศึกษา');
+        }
+        res.send(itStudents);
 });
